@@ -64,7 +64,7 @@ class Train
   end
 
   def forward
-    @index += 1 if route.stations.count >= @index
+    @index += 1 if @route.stations.count >= @index
   end
 
   def backward
@@ -72,15 +72,15 @@ class Train
   end
 
   def prev_station
-    route.stations[@index - 1] if route.stations.count[@index] > 1
+    @route.stations[@index - 1] if @route.stations.count[@index] > 1
   end
 
   def current_station
-    route.stations[@index]
+    @route.stations[@index]
   end
 
   def next_station
-    route.stations[@index + 1] if route.stations.count > @index + 1
+    @route.stations[@index + 1] if @route.stations.count > @index + 1
   end
 end
 
