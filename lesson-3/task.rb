@@ -103,4 +103,4 @@ route1.add_station(station_amsterdam)
 
 train3.add_car
 train3.route = route1
-train3.forward 
+train3.forward
