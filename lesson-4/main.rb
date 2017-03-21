@@ -8,6 +8,11 @@ require_relative 'cargo_car'
 require_relative 'database'
 
 class UserInput
+
+  COMMANDS_METHOD = %w(
+    create_station create_train add_car remove_car create_route
+    edit_route set_route forward backward list_stations trains_station
+  )
   COMMANDS_TEXT = [
     'create_station', 'create_train','add_car', 'remove_car', 'create_route',
     'edit_route', 'set_route', 'forward', 'backward', 'list_stations',
@@ -24,32 +29,10 @@ class UserInput
     UserInput::COMMANDS_TEXT.each_with_index {
       |command, number| puts "#{number+1} #{command}"
     }
-    command = gets.chomp.to_i
-    if command == 1
-      create_station
-    elsif command == 2
-      create_train
-    elsif command == 3
-      add_car
-    elsif command == 4
-      remove_car
-    elsif command == 5
-      create_route
-    elsif command == 6
-      edit_route
-    elsif command == 7
-      set_route
-    elsif command == 8
-      forward
-    elsif command == 9
-      backward
-    elsif command == 10
-      list_stations
-    elsif command == 11
-      trains_station
-    else
-      return
-    end
+    input = gets.chomp.to_i
+    index = input - 1
+    command = UserInput::COMMANDS_METHOD[index]
+    send(command)
   end
 
   def list_stations
