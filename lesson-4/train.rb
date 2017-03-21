@@ -4,9 +4,8 @@ class Train
 
   def initialize(number)
     @number = number
-    @type = type
     @speed = 0
-    @index = -1
+    @index = 0
     @cars = []
   end
 
@@ -23,7 +22,7 @@ class Train
   end
 
   def prev_station
-    @route.stations[@index - 1] if @route.stations.count[@index] > 1
+    @route.stations[@index - 1] 
   end
 
   def current_station
