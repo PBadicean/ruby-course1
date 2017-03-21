@@ -12,10 +12,6 @@ class Database
     @stations << station
   end
 
-  def last_added_station
-    @stations[-1]
-  end
-
   def save_train(type, number)
     train = CargoTrain.new(number) if type == "cargo"
     train = PassengerTrain.new(number) if type == "passenger"
@@ -32,20 +28,12 @@ class Database
     train.cars.delete(car)
   end
 
-  def last_added_train
-    @trains[-1]
-  end
-
-  def save_route(index_start, index_end)
-    start_station = @stations[index_start]
-    end_station = @stations[index_end]
-    route = Route.new(start_station, end_station)
+  def save_route(station_start, station_end)
+    route = Route.new(station_start, station_end)
     @routes << route
   end
 
-  def change_route(answer, index_station, index_route)
-    station = @stations[index_station]
-    route = @routes[index_route]
+  def edit_route(answer, station, route)
     if answer == 1
       route.add_station(station)
     elsif answer == 2
@@ -53,13 +41,7 @@ class Database
     end
   end
 
-  def last_added_route
-    @routes[-1]
-  end
-
-  def save_set_route(index_route, index_train)
-    route = @routes[index_route]
-    train = @trains[index_train]
+  def assign_route_to_train (route, train)
     train.route = route
     train.current_station.add_train(train)
   end

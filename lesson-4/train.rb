@@ -10,11 +10,11 @@ class Train
   end
 
   def add_car(car)
-    @cars << car if car_type_valid?(car)
+    @cars << car if car_type_valid?(car) && @speed == 0
   end
 
   def remove_car(car)
-    @cars.delete(car) if car_type_valid?(car)
+    @cars.delete(car) if car_type_valid?(car) && @speed == 0 && @cars.count >= 1
   end
 
   def stop

@@ -18,7 +18,7 @@ class UserInput
     puts ' '*80
     puts [
        '1 create_station', '2 create_train','3 add_car', '4 remove_car',
-       '5 create_route', '6 change_route', '7 set_route', '8 forward',
+       '5 create_route', '6 edit_route', '7 set_route', '8 forward',
        '9 backward', '10 list stations', '11 list trains station', '12 stop'
      ]
     comand = gets.chomp.to_i
@@ -33,7 +33,7 @@ class UserInput
     elsif comand == 5
       create_route
     elsif comand == 6
-      change_route
+      edit_route
     elsif comand == 7
       set_route
     elsif comand == 8
@@ -56,7 +56,7 @@ class UserInput
     name = gets.chomp
     @database.save_station(name)
     puts ' '*80
-    puts @database.last_added_station.inspect
+    puts @database.stations.last.inspect
     puts '>'*80
     start
   end
@@ -65,21 +65,18 @@ class UserInput
     puts ' '*80
     puts 'Choose type 1:cargo or 2:passenger'
     type_nomer = gets.chomp.to_i
-    if type_nomer == 1
-      type = 'cargo'
-    elsif type_nomer == 2
-      type = 'passenger'
-    else
+    type = 'cargo' if type_nomer == 1
+    type = 'passenger' if type_nomer == 2
+    if type.nil?
       puts 'You not choosed type'
-      start
-      return
+      return start
     end
     puts ' '*80
     puts 'Write train number'
     number = gets.chomp
     @database.save_train(type, number)
     puts ' '*80
-    puts @database.last_added_train.inspect
+    puts @database.trains.last.inspect
     puts '>'*80
     start
   end
@@ -118,28 +115,32 @@ class UserInput
     puts ' '*80
     puts 'write index start station'
     index_start = gets.chomp.to_i
+    station_start = @database.stations[index_start]
     puts 'write index end station'
     index_end = gets.chomp.to_i
-    @database.save_route(index_start, index_end)
+    station_end = @database.stations[index_end]
+    @database.save_route(station_end, station_end)
     puts ' '*80
-    puts @database.last_added_route.inspect
+    puts @database.routes.last.inspect
     puts '>'*80
     start
   end
 
-  def change_route
+  def edit_route
     puts ' '*80
     puts 'Choose index station'
     puts ' '*80
     puts @database.stations.inspect
     index_station = gets.chomp.to_i
+    station = @database.stations[index_station]
     puts 'Choose index route'
     puts @database.routes.inspect
     index_route = gets.chomp.to_i
+    route = @database.routes[index_route]
     puts 'you want 1:add or 2:remove'
     answer = gets.chomp.to_i
-    @database.change_route(answer, index_station, index_route)
-    puts @database.last_added_route.inspect
+    @database.edit_route(answer, station, route)
+    puts @database.routes.last.inspect
     puts '>'*80
     start
   end
@@ -149,11 +150,13 @@ class UserInput
     puts 'Choose index route'
     puts @database.routes.inspect
     index_route = gets.chomp.to_i
+    route = @database.routes[index_route]
     puts 'Choose index train'
     puts @database.trains.inspect
     index_train = gets.chomp.to_i
-    @database.save_set_route(index_route, index_train)
-    puts @database.last_added_train.inspect
+    train = @database.trains[index_train]
+    @database.assign_route_to_train(route, train)
+    puts @database.trains.last.inspect
     puts '>'*80
     start
   end
