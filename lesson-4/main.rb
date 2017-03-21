@@ -26,9 +26,9 @@ class UserInput
   def start
     puts 'Choose number available commands'
     puts ' '*80
-    UserInput::COMMANDS_TEXT.each_with_index {
-      |command, number| puts "#{number+1} #{command}"
-    }
+    UserInput::COMMANDS_TEXT.each_with_index do |command, number|
+      puts "#{number+1} #{command}"
+    end
     input = gets.chomp.to_i
     index = input - 1
     command = UserInput::COMMANDS_METHOD[index]
