@@ -9,6 +9,14 @@ class Train
     @cars = []
   end
 
+  def add_car(car)
+    @cars << car if car_type_valid?(car)
+  end
+
+  def remove_car(car)
+    @cars.delete(car) if car_type_valid?(car)
+  end
+
   def stop
     @speed = 0
   end
