@@ -8,46 +8,53 @@ require_relative 'cargo_car'
 require_relative 'database'
 
 class UserInput
+  COMMANDS_TEXT = [
+    'create_station', 'create_train','add_car', 'remove_car', 'create_route',
+    'edit_route', 'set_route', 'forward', 'backward', 'list_stations',
+    'list trains_station', 'stop'
+  ]
 
   def initialize
     @database = Database.new
   end
 
   def start
-    puts 'Choose number available comands'
+    puts 'Choose number available commands'
     puts ' '*80
-    puts [
-       '1 create_station', '2 create_train','3 add_car', '4 remove_car',
-       '5 create_route', '6 edit_route', '7 set_route', '8 forward',
-       '9 backward', '10 list stations', '11 list trains station', '12 stop'
-     ]
-    comand = gets.chomp.to_i
-    if comand == 1
+    UserInput::COMMANDS_TEXT.each_with_index {
+      |command, number| puts "#{number+1} #{command}"
+    }
+    command = gets.chomp.to_i
+    if command == 1
       create_station
-    elsif comand == 2
+    elsif command == 2
       create_train
-    elsif comand == 3
+    elsif command == 3
       add_car
-    elsif comand == 4
+    elsif command == 4
       remove_car
-    elsif comand == 5
+    elsif command == 5
       create_route
-    elsif comand == 6
+    elsif command == 6
       edit_route
-    elsif comand == 7
+    elsif command == 7
       set_route
-    elsif comand == 8
+    elsif command == 8
       forward
-    elsif comand == 9
+    elsif command == 9
       backward
-    elsif comand == 10
-      puts @database.stations.inspect
-      start
-    elsif comand == 11
+    elsif command == 10
+      list_stations
+    elsif command == 11
       trains_station
-    elsif comand == 12
+    else
       return
     end
+  end
+
+  def list_stations
+    puts @database.stations.inspect
+    start
   end
 
   def create_station
