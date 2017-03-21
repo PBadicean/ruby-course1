@@ -1,6 +1,7 @@
-class Passenger < Train
+class PassengerTrain < Train
   def add_car(car)
     @cars << car if car.class == PassengerCar && @speed == 0
+    puts car.class
   end
 
   def remove_car(car)
