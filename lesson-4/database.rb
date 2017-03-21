@@ -1,6 +1,7 @@
 class Database
   attr_reader :stations, :trains, :routes
   attr_accessor :route
+
   def initialize
     @stations = []
     @trains = []
