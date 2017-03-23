@@ -63,4 +63,3 @@ class Train
     @route.stations[@index + 1] if @route.stations.count > @index + 1
   end
 end
-
