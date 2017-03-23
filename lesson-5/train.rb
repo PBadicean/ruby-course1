@@ -11,7 +11,7 @@ class Train
     @index = 0
     @cars = []
     self.class.all << self
-    self.register_instance
+    register_instance
   end
 
   class << self
@@ -23,11 +23,7 @@ class Train
     end
 
     def find(number)
-      @train = nil
-      @all.each do |train|
-        @train = train if train.number == number
-      end
-      @train
+      all.select {|train| train.number ==number }
     end
   end
 

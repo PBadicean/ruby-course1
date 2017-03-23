@@ -6,18 +6,14 @@ class Station
     @name = name
     @trains = []
     self.class.all << self
-    self.register_instance
+    register_instance
   end
 
   class << self
     attr_accessor :all
 
     def all
-      if @all.nil?
-        @all = []
-      else
-        @all
-      end
+      @all ||= []
     end
   end
 
