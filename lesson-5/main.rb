@@ -21,38 +21,3 @@ puts Station.all.inspect
 
 car = CargoCar.new
 puts CargoCar.instances
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

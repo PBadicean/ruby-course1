@@ -37,4 +37,3 @@ class Station
     filter_trains
   end
 end
-
