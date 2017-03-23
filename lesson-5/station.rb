@@ -1,9 +1,24 @@
 class Station
+  include InstanceCounter
   attr_reader :trains, :name
 
   def initialize(name)
     @name = name
     @trains = []
+    self.class.all << self
+    self.register_instance
+  end
+
+  class << self
+    attr_accessor :all
+
+    def all
+      if @all.nil?
+        @all = []
+      else
+        @all
+      end
+    end
   end
 
   def add_train(train)
@@ -22,5 +37,4 @@ class Station
     filter_trains
   end
 end
-
 
