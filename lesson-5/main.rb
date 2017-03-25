@@ -12,12 +12,10 @@ require_relative 'station'
 train1 = PassengerTrain.new('ln-21')
 train2 = PassengerTrain.new('dk-54')
 
-puts PassengerTrain.find('dk-54').inspect
+puts PassengerTrain.instances
 
 station = Station.new('moskow')
 station1 = Station.new('london')
-
-puts Station.all.inspect
 
 car = CargoCar.new
 puts CargoCar.instances
