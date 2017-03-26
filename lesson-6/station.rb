@@ -34,7 +34,7 @@ class Station
   private
 
   def validate!
-    raise "Name can't be nil" if @name.nil?
+    raise "Name can't be nil" if @name.to_s.empty?
     raise "Nanme has invalid format" if @name !~ NAME_FORMAT
     true
   end
