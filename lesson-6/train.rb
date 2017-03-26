@@ -50,7 +50,7 @@ class Train
     false
   end
 
-  protected
+  private
 
   def validate!
     raise "Number can't be nil" if @number.nil?

@@ -110,13 +110,20 @@ class UserInput
     puts ' '*80
     puts 'write index start station'
     index_start = gets.chomp.to_i
-    station_start = @database.stations[index_start]
     puts 'write index end station'
     index_end = gets.chomp.to_i
-    station_end = @database.stations[index_end]
-    @database.save_route(station_end, station_end)
-    puts ' '*80
-    puts @database.routes.last.inspect
+    puts  @database.stations.length
+    if index_start <= @database.stations.length - 1 && index_end <= @database.stations.length - 1 && index_end != index_start
+      station_start = @database.stations[index_start]
+      station_end = @database.stations[index_end]
+      @database.save_route(station_start, station_end)
+      puts @database.routes.last.inspect
+    else
+      puts ' '*80
+      puts @database.routes.last.inspect
+      puts 'You choosed wrong index'
+      start
+    end
   end
 
   def edit_route
