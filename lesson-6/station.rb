@@ -31,7 +31,8 @@ class Station
     false
   end
 
-  protected
+  private
+
   def validate!
     raise "Name can't be nil" if @name.nil?
     raise "Nanme has invalid format" if @name !~ NAME_FORMAT

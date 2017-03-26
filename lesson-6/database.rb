@@ -37,7 +37,12 @@ class Database
 
   def save_route(station_start, station_end)
     route = Route.new(station_start, station_end)
-    @routes << route
+    if route.valid?
+      @routes << route
+      return true
+    else
+      return false
+    end
   end
 
   def edit_route(answer, station, route)
