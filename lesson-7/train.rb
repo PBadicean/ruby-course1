@@ -1,5 +1,5 @@
 class Train
-  attr_reader :type, :cars, :number
+  attr_reader :cars, :number
   attr_accessor :speed, :route
 
   NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/
@@ -43,7 +43,7 @@ class Train
     @route.stations[@index + 1] if @route.stations.count > @index + 1
   end
 
-  def puts_cars
+  def each_car
     @cars.each do |car|
       yield(car)
     end

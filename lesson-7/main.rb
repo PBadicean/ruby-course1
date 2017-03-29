@@ -59,8 +59,6 @@ class UserInput
   def create_car
     puts 'Choose type 1:Cargo car or 2:Passenger car'
     type_number = gets.chomp.to_i
-    type = 'cargo' if type_number == 1
-    type = 'passenger' if type_number == 2
     if type.nil?
       puts 'You not chose type'
       return start
@@ -86,12 +84,16 @@ class UserInput
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
     puts 'Choose index car'
-    train.puts_cars{|car| puts car.inspect}
+    train.each_car{|car| puts car.inspect}
     index_car =  gets.chomp.to_i
-    car = @database.cars[index_car]
-    @database.take_place(car)
-    puts 'You took one seat'
-    puts car.inspect
+    if @database.cars[index_car].nil?
+      'This car does not exist'
+      return start
+    else car = @database.cars[index_car]
+      car.take_place
+      puts 'You took one seat'
+      puts car.inspect
+    end
   end
 
   def take_volume
@@ -99,14 +101,20 @@ class UserInput
     puts @database.trains.inspect
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
+
     puts 'Choose index car'
-    train.puts_cars{|car| puts car.inspect}
+    train.each_car{|car| puts car.inspect}
     index_car =  gets.chomp.to_i
-    car = @database.cars[index_car]
     puts 'Write new volume'
     volume = gets.chomp.to_i
-    @database.take_volume(car, volume)
-    puts car.inspect
+    if @database.cars[index_car].nil?
+      'This car does not exist'
+      return start
+    else car = @database.cars[index_car]
+      car.take_volume(car, volume)
+      puts 'You took one seat'
+      puts car.inspect
+    end
   end
 
   def cars_train
@@ -114,7 +122,7 @@ class UserInput
     puts @database.trains.inspect
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
-    train.puts_cars{|car| puts car.inspect}
+    train.each_car{|car| puts car.inspect}
   end
 
   def create_train
@@ -245,7 +253,7 @@ class UserInput
       puts @database.stations.inspect
       index_station = gets.chomp.to_i
       station = @database.stations[index_station]
-      station.trains{|train| puts train.inspect}
+      station.each_train{|train| puts train.inspect}
   end
 
   private

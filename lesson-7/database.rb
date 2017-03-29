@@ -24,14 +24,6 @@ class Database
     @cars << car
   end
 
-  def take_place(car)
-    car.take_place
-  end
-
-  def take_volume(car, volume)
-    car.take_volume(volume)
-  end
-
   def save_train(type, number)
     train = CargoTrain.new(number) if type == 'cargo'
     train = PassengerTrain.new(number) if type == 'passenger'
