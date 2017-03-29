@@ -59,7 +59,8 @@ class UserInput
   def create_car
     puts 'Choose type 1:Cargo car or 2:Passenger car'
     type_number = gets.chomp.to_i
-    if type.nil?
+
+    if type_number.nil?
       puts 'You not chose type'
       return start
     end
@@ -84,7 +85,7 @@ class UserInput
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
     puts 'Choose index car'
-    train.each_car{|car| puts car.inspect}
+    puts train.cars.inspect
     index_car =  gets.chomp.to_i
     if @database.cars[index_car].nil?
       'This car does not exist'
@@ -101,9 +102,8 @@ class UserInput
     puts @database.trains.inspect
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
-
     puts 'Choose index car'
-    train.each_car{|car| puts car.inspect}
+    train.cars
     index_car =  gets.chomp.to_i
     puts 'Write new volume'
     volume = gets.chomp.to_i
@@ -122,7 +122,19 @@ class UserInput
     puts @database.trains.inspect
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
-    train.each_car{|car| puts car.inspect}
+    train.each_car do |car|
+      number = train.cars.index(car)+1
+      type = car.class
+      if car.class == CargoCar
+        volume = car.total_volume
+        takes_volume = car.takes_volume
+        puts "Number: #{number}, type: #{type}, free volume: #{volume}, takes volume: #{takes_volume}"
+      else car.class == PassengerCar
+        free_place = car.free_places
+        takes_place = car.takes_places
+        puts "Number: #{number}, type: #{type}, free places: #{free_place}, takes places: #{takes_place}"
+      end
+    end
   end
 
   def create_train
@@ -253,7 +265,12 @@ class UserInput
       puts @database.stations.inspect
       index_station = gets.chomp.to_i
       station = @database.stations[index_station]
-      station.each_train{|train| puts train.inspect}
+      station.each_train do |train|
+        number = station.trains.index(train)+1
+        type = train.class
+        cars = train.cars.size
+        puts "Number: #{number}, type:#{type}, cars: #{cars}"
+      end
   end
 
   private
