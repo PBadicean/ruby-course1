@@ -16,14 +16,6 @@ class Station
     @trains.delete(train)
   end
 
-  def trains_by_type(type)
-    filter_trains = []
-    @trains.each do |train|
-      filter_trains << train if train.type == type
-    end
-    filter_trains
-  end
-
   def valid?
     validate!
   rescue => e
@@ -31,7 +23,7 @@ class Station
     false
   end
 
-  def trains
+  def each_train
     @trains.each do|train|
       yield train
     end
