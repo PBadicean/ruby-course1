@@ -13,12 +13,12 @@ class UserInput
   COMMANDS_METHOD = %w(
     create_station create_car take_place take_volume create_train add_car remove_car create_route
     edit_route set_route forward backward list_stations trains_station
-    cars_train
+     cars_train fake_data
   )
   COMMANDS_TEXT = [
     'create station', 'create car','take place', 'take volume', 'create train', 'add car', 'remove car',
     'create route', 'edit route', 'set route', 'forward', 'backward',
-    'list stations', 'list trains station', 'list cars train', 'stop'
+    'list stations', 'list trains station', 'list cars train','fake data', 'stop'
   ]
 
   def initialize
@@ -47,6 +47,48 @@ class UserInput
   def list_stations
       puts @database.stations.inspect
   end
+
+  def fake_data
+    4.times do |i|
+      if i % 2 == 0
+        type = 'cargo'
+      else
+        type = 'passenger'
+      end
+      number = "abcd#{i}"
+      @database.save_train(type, number)
+    end
+    @database.trains.each do |train|
+      5.times do |i|
+        if train.class == PassengerTrain
+          car = PassengerCar.new(20+i)
+        else
+          car = CargoCar.new(50+i)
+        end
+        train.add_car(car)
+      end
+    end
+    puts @database.trains.inspect
+    puts '>'*80
+
+    4.times do
+      c = 'abcd'
+      name = ''
+      name << c[rand(c.size)]
+      @database.save_station(name)
+    end
+    puts @database.stations
+    puts '>'*80
+
+    2.times do |i|
+      station_start = @database.stations[i]
+      station_end = @database.stations[i+1]
+      @database.save_route(station_start, station_end)
+    end
+    puts @database.routes
+  end
+
+
 
   def create_station
     puts 'Write name station'
@@ -119,7 +161,9 @@ class UserInput
 
   def cars_train
     puts 'Choose index train'
-    puts @database.trains.inspect
+    @database.trains.each do |i|
+      puts @database.trains.index(i)
+    end
     index_train = gets.chomp.to_i
     train = @database.trains[index_train]
     train.each_car do |car|
