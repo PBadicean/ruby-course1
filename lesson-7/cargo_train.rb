@@ -3,6 +3,6 @@ class CargoTrain < Train
   private
 
   def car_type_valid?(car)
-    car.class = CargoCar
+    car.class == CargoCar
   end
 end
