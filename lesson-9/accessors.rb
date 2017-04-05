@@ -1,7 +1,6 @@
 module Accessor
-
   def attr_accessor_with_history(*attrs)
-    define_method("history") do |attr, value|
+    define_method('history') do |attr, value|
       @history ||= {}
       @history[attr] ||= []
       @history[attr] << value
@@ -26,19 +25,11 @@ module Accessor
 
     define_method("#{attr}=") do |value|
       if value.class != klass
-        raise "Error!!!"
+        raise 'Error!!!'
       else
-       instance_variable_set(var_attr, value)
+        instance_variable_set(var_attr, value)
         history(attr, value)
       end
     end
   end
-end
-
-class Child
-
-  extend Accessor
-
-  my_attr_accessor :name, :year
-
 end

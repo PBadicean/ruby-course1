@@ -1,3 +1,5 @@
+require_relative 'validation'
+require_relative 'Train'
 class PassengerTrain < Train
   private
 
