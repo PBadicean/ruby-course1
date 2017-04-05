@@ -1,4 +1,4 @@
-module Accessor
+module Accessors
   def attr_accessor_with_history(*attrs)
     define_method('history') do |attr, value|
       @history ||= {}

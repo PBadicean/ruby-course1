@@ -1,5 +1,4 @@
 require_relative 'validation'
-require_relative 'accessors'
 
 class Station
   include Validation
@@ -29,3 +28,5 @@ class Station
     filter_trains
   end
 end
+st1 = Station.new('moskow')
+puts st1.valid?
