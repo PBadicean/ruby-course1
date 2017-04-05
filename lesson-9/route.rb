@@ -6,8 +6,8 @@ class Route
 
   attr_reader :stations, :station_start, :station_end
 
-  validate :station_start, :class, Station
-  validate :station_end, :class, Station
+  validate :station_start, :type, Station
+  validate :station_end, :type, Station
 
   def initialize(station_start, station_end)
     @station_start = station_start

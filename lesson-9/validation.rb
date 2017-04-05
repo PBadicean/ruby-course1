@@ -17,13 +17,7 @@ module Validation
         attr = valid.keys.first
         rule = valid[attr]
         attr_val = instance_variable_get("@#{attr}")
-        if rule.include?(:presence)
-          raise "#{attr} can't be nil" if attr_val.to_s.empty?
-        elsif rule.include?(:format)
-          raise "#{attr} has invalid format" if attr_val.to_s !~ rule[1]
-        elsif rule.include?(:class)
-          raise "Your #{attr} has wrong class" if attr_val.class != rule[1]
-        end
+        send(rule[0], attr, attr_val, rule[1])
       end
     end
 
@@ -33,6 +27,20 @@ module Validation
     rescue => e
       puts e
       false
+    end
+
+    private
+
+    def presence(attr, attr_val, rule)
+      raise "#{attr} can't be nil" if attr_val.to_s.empty?
+    end
+
+    def format(attr, attr_val, rule)
+      raise "#{attr} has invalid format" if attr_val.to_s !~ rule
+    end
+
+    def type(attr, attr_val, rule)
+      raise "Your #{attr} has wrong class" if attr_val.class != rule
     end
   end
 end
