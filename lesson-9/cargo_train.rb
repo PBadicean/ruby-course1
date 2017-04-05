@@ -1,5 +1,6 @@
+require_relative 'validation'
+require_relative 'train'
 class CargoTrain < Train
-
   private
 
   def car_type_valid?(car)
