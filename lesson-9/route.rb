@@ -1,5 +1,6 @@
+require_relative 'station'
 require_relative 'validation'
-require_relative 'accessors'
+
 class Route
   include Validation
 
@@ -23,3 +24,7 @@ class Route
     @stations.delete(station) if station != @stations.first && station != @stations.last
   end
 end
+st1 = Station.new('moskow')
+st2 = Station.new('berlin')
+r = Route.new(st1, st2)
+puts r.valid?

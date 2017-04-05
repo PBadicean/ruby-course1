@@ -1,5 +1,4 @@
 require_relative 'validation'
-require_relative 'accessors'
 
 class Train
   include Validation
@@ -48,3 +47,5 @@ class Train
     @route.stations[@index + 1] if @route.stations.count > @index + 1
   end
 end
+tr = Train.new("sokol")
+puts tr.valid?
