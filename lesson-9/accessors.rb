@@ -1,10 +1,5 @@
 module Accessors
   def attr_accessor_with_history(*attrs)
-    define_method('history') do |attr, value|
-      @history ||= {}
-      @history[attr] ||= []
-      @history[attr] << value
-    end
 
     attrs.each do |attr|
       var_attr = "@#{attr}"
@@ -12,7 +7,9 @@ module Accessors
 
       define_method("#{attr}=") do |value|
         instance_variable_set(var_attr, value)
-        history(attr, value)
+        @history ||= {}
+        @history[attr] ||= []
+        @history[attr] << value
       end
 
       define_method("#{attr}_history") { @history[attr] }
@@ -28,7 +25,6 @@ module Accessors
         raise 'Error!!!'
       else
         instance_variable_set(var_attr, value)
-        history(attr, value)
       end
     end
   end
